@@ -1,0 +1,197 @@
+﻿/* 1. Reset & General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 2. Top Bar */
+.top-bar {
+    background: #f7f7f7;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-links {
+    float: right;
+}
+
+    .top-links a {
+        text-decoration: none;
+        color: #666;
+    }
+
+/* 3. Header & Logo */
+header {
+    padding: 20px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    color: #0072bc; /* Màu xanh Thanh Niên */
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+
+.search-box input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
+
+/* 4. Navigation */
+nav {
+    border-top: 2px solid #0072bc;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+    nav ul {
+        list-style: none;
+        display: flex;
+    }
+
+        nav ul li a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+            nav ul li a.active, nav ul li a:hover {
+                color: #0072bc;
+            }
+
+/* 5. Main Layout */
+.main-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+/* Featured Product */
+.product-card.featured img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.product-card.featured h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+/* Small Products List */
+.product-card-small {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+    .product-card-small img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    .product-card-small h3 {
+        font-size: 16px;
+    }
+
+/* 6. Sidebar */
+.sidebar-box {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+    .sidebar-box h3 {
+        border-bottom: 2px solid #0072bc;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
+    .sidebar-box ul {
+        list-style: none;
+    }
+
+    .sidebar-box li {
+        margin-bottom: 10px;
+        border-bottom: 1px dotted #ccc;
+        padding-bottom: 5px;
+    }
+
+    .sidebar-box a {
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+    }
+
+/* 7. Buttons & Price */
+.price {
+    color: #d0021b;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.button-buy {
+    background-color: #0072bc;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* 8. Footer */
+.footer {
+    background: #333;
+    color: #ccc;
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content {
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NHD Store | Landing Page</title>
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="~/css/landing.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- ==================== HEADER (GLASSMORPHISM) ==================== -->
+    <header class="glass-header" id="mainHeader">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <i class="fa-solid fa-bolt" style="color: var(--primary);"></i>
+                NHD<span>Store</span>
+            </a>
+
+            <!-- Menu Navigation -->
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Trang Chủ</a></li>
+                <li><a href="#productsSection" class="nav-link">Sản Phẩm</a></li>
+                <li><a asp-controller="Product" asp-action="Index" class="nav-link">Quản Trị Viên</a></li>
+                <li><a href="#" class="nav-link">Khuyến Mãi</a></li>
+                <li><a href="#" class="nav-link">Liên Hệ</a></li>
+            </ul>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm..." id="productSearch">
+                </div>
+
+                <!-- Cart Button -->
+                <button class="cart-icon-btn" id="openCartBtn" title="Xem giỏ hàng">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge" id="cartBadgeCount">0</span>
+                </button>
+                
+                <!-- Mobile Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuBtn">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- ==================== CART SIDE DRAWER ==================== -->
+    <div class="cart-drawer-backdrop" id="cartBackdrop"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3 class="cart-drawer-title">
+                <i class="fa-solid fa-bag-shopping" style="color: var(--primary);"></i>
+                Giỏ hàng của bạn
+            </h3>
+            <button class="cart-close-btn" id="closeCartBtn">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <!-- Cart Items Container -->
+        <div class="cart-items-list" id="cartItemsContainer">
+            <!-- Dynamically populated via JavaScript -->
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="cart-drawer-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Tổng thanh toán:</span>
+                <span class="cart-total-price" id="cartSubtotal">0 đ</span>
+            </div>
+            <button class="btn-cta btn-checkout" id="checkoutBtn">
+                Thanh Toán Ngay <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ==================== FOOTER (MINIMALISM) ==================== -->
+    <footer class="minimal-footer">
+        <div class="footer-container">
+            <!-- Brand Info Column -->
+            <div class="footer-brand-col">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-bolt" style="color: var(--primary);"></i>
+                    NHD<span>Store</span>
+                </a>
+                <p class="footer-desc">
+                    Trải nghiệm kỷ nguyên mua sắm mới với các thiết bị công nghệ đỉnh cao, chất lượng chuẩn quốc tế và phong cách phục vụ đẳng cấp.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div class="footer-links-col">
+                <h4 class="footer-col-title">Khám Phá</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#productsSection">Sản phẩm công nghệ</a></li>
+                    <li><a href="#">Bộ sưu tập mới nhất</a></li>
+                    <li><a href="#">Chương trình giảm giá</a></li>
+                </ul>
+            </div>
+
+            <!-- Policy Column -->
+            <div class="footer-links-col">
+                <h4 class="footer-col-title">Chính Sách</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Chính sách hoàn tiền</a></li>
+                    <li><a href="#">Vận chuyển & Giao hàng</a></li>
+                </ul>
+            </div>
+
+            <!-- Security Column -->
+            <div class="footer-links-col">
+                <h4 class="footer-col-title">Hỗ Trợ & Bảo Mật</h4>
+                <ul class="contact-info-list" style="margin-bottom: 1.5rem;">
+                    <li><i class="fa-solid fa-location-dot"></i> 475 Điện Biên Phủ, P.25, Bình Thạnh, TP.HCM</li>
+                    <li><i class="fa-solid fa-phone"></i> +84 28 5445 2222</li>
+                    <li><i class="fa-solid fa-envelope"></i> contact@nhdstore.vn</li>
+                </ul>
+                <div class="security-badges">
+                    <div class="security-badge" title="Bảo mật SSL 256-bit">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>SSL<br>Secure</span>
+                    </div>
+                    <div class="security-badge" title="Thanh toán PCI-DSS chuẩn quốc tế">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span>PCI<br>Compliant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright Bar -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 NHD Store. Thiết kế bởi Nguyễn Hữu Đạt - 2380600440. All rights reserved.</p>
+            <p>Mã môn học: CMP376 - Công nghệ Phần mềm</p>
+        </div>
+    </footer>
+
+    <!-- ==================== CLIENT-SIDE JAVASCRIPT ENGINE ==================== -->
+    <script>
+        // 1. Scroll Effect on Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Shopping Cart Engine (LocalStorage Based)
+        let cart = [];
+
+        // Load cart from LocalStorage on init
+        function initCart() {
+            const savedCart = localStorage.getItem('nhd_store_cart');
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                } catch (e) {
+                    cart = [];
+                }
+            }
+            renderCart();
+        }
+
+        // Save cart to LocalStorage
+        function saveCart() {
+            localStorage.setItem('nhd_store_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        // Add to Cart Function
+        function addToCart(id, name, price, imageUrl) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: parseFloat(price),
+                    imageUrl: imageUrl || '/images/default-tech.jpg',
+                    qty: 1
+                });
+            }
+            
+            saveCart();
+            showToast(`Đã thêm <strong>${name}</strong> vào giỏ hàng thành công!`);
+        }
+
+        // Remove from Cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+        }
+
+        // Update Quantity
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    removeFromCart(id);
+                } else {
+                    saveCart();
+                }
+            }
+        }
+
+        // Format Currency in VND (e.g. 79,990,000 đ)
+        function formatVND(value) {
+            return new Intl.NumberFormat('vi-VN').format(value) + ' đ';
+        }
+
+        // Render Cart UI
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartBadgeCount = document.getElementById('cartBadgeCount');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            
+            // Update total badge count
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartBadgeCount.innerText = totalItems;
+            
+            // Calculate total price
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            cartSubtotal.innerText = formatVND(subtotal);
+
+            // Populate list
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <p>Giỏ hàng của bạn đang trống</p>
+                        <p style="font-size: 0.8rem;">Hãy dạo quanh và chọn mua những sản phẩm đỉnh cao nhé!</p>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                cart.forEach(item => {
+                    html += `
+                        <div class="cart-item">
+                            <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-img">
+                            <div class="cart-item-details">
+                                <h4 class="cart-item-name">${item.name}</h4>
+                                <span class="cart-item-price">${formatVND(item.price)}</span>
+                                <div class="cart-item-qty-control">
+                                    <button class="cart-qty-btn" onclick="updateQuantity(${item.id}, -1)"><i class="fa-solid fa-minus"></i></button>
+                                    <span class="cart-qty-val">${item.qty}</span>
+                                    <button class="cart-qty-btn" onclick="updateQuantity(${item.id}, 1)"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="cart-item-action">
+                                <button class="cart-remove-btn" onclick="removeFromCart(${item.id})" title="Xóa khỏi giỏ hàng">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                cartItemsContainer.innerHTML = html;
+            }
+        }
+
+        // Show Glassmorphic Toast Notification
+        function showToast(message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'glass-toast';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check toast-icon"></i>
+                <span class="toast-msg">${message}</span>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto hide after 3.5s
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3500);
+        }
+
+        // 3. UI Interaction Event Listeners
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartBackdrop = document.getElementById('cartBackdrop');
+        const openCartBtn = document.getElementById('openCartBtn');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // Open Cart
+        openCartBtn.addEventListener('click', () => {
+            cartDrawer.classList.add('open');
+            cartBackdrop.classList.add('open');
+        });
+
+        // Close Cart
+        closeCartBtn.addEventListener('click', closeCart);
+        cartBackdrop.addEventListener('click', closeCart);
+
+        function closeCart() {
+            cartDrawer.classList.remove('open');
+            cartBackdrop.classList.remove('open');
+        }
+
+        // Checkout Click
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast("Giỏ hàng của bạn đang trống! Hãy thêm sản phẩm trước.");
+                return;
+            }
+            // Display purchase confirmation
+            showToast("🎉 Cảm ơn bạn! Đơn hàng đang được xử lý thanh toán...");
+            setTimeout(() => {
+                cart = [];
+                saveCart();
+                closeCart();
+                alert("Đặt hàng thành công! NHD Store sẽ liên hệ với bạn trong giây lát để xác nhận đơn hàng.");
+            }, 1000);
+        });
+
+        // Search highlight functionality (simple dynamic scroll/filter)
+        const searchInput = document.getElementById('productSearch');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const name = card.querySelector('.product-name').innerText.toLowerCase();
+                const desc = card.querySelector('.product-description').innerText.toLowerCase();
+                
+                if (name.includes(query) || desc.includes(query)) {
+                    card.style.display = 'flex';
+                    card.style.opacity = '1';
+                } else {
+                    card.style.opacity = '0.2';
+                    setTimeout(() => {
+                        if (card.style.opacity === '0.2') {
+                            card.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+        });
+
+        // Initialize cart on page load
+        window.addEventListener('DOMContentLoaded', initCart);
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

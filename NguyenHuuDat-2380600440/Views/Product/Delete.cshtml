@@ -1,0 +1,10 @@
+﻿@model NguyenHuuDat_2380600440.Models.Product
+
+<h2>Xác nhận xóa sản phẩm</h2>
+<p>Bạn có chắc muốn xóa sản phẩm <strong>@Model.Name</strong> không?</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+</form>
